@@ -38,7 +38,7 @@ public abstract class BaseTest {
     	testdroidProperties = new Properties();
     	InputStream input = null;
     	try {
-    		String filename = "testdroid.properties";
+    		String filename = "testdroid.serverside.properties";
     		input = getClass().getClassLoader().getResourceAsStream(filename);
     		if (input == null) {
     			System.out.println("Sorry, unable to find " + filename);
@@ -60,14 +60,31 @@ public abstract class BaseTest {
     }
     
     public void setUpAppiumDriver() throws IOException {
-    	 String apiKey = testdroidProperties.getProperty("apiKey");
-         String fileUUID = uploadFile(getTargetAppPath(), testdroidProperties.getProperty("testdroidServer"), apiKey);
-         setDesiredCapabilities(fileUUID);
+    	 if (getTargetAppPath()!=null && !getTargetAppPath().isEmpty()) {    		 
+    		 String apiKey = testdroidProperties.getProperty("apiKey");
+    		 String fileUUID = uploadFile(getTargetAppPath(), testdroidProperties.getProperty("testdroidServer"), apiKey);
+    		 setDesiredCapabilities(fileUUID);
+    	 }
+    	 else {
+    		 setServerSideDesiredCapabilities();
+    	 }
          System.out.println("Creating Appium session, this may take couple minutes..");
          setAppiumDriver();
     }
     
-    protected void quitAppiumSession(){
+    private void setServerSideDesiredCapabilities() {
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("platformName", testdroidProperties.getProperty("androidPlatfromName"));
+        capabilities.setCapability("deviceName", testdroidProperties.getProperty("androidDeviceName"));
+        capabilities.setCapability("app", System.getProperty("user.dir")+"/application.apk");
+        capabilities.setCapability("appPackage", testdroidProperties.getProperty("androidAppPackage"));
+//        capabilities.setCapability("testdroid_app", fileUUID); //to use existing app using "latest" as fileUUID  
+        System.out.println("Capabilities:" + capabilities.toString());
+        this.capabilities = capabilities;
+        
+        // POST /wd/hub/session {"requiredCapabilities":{},"desiredCapabilities":{"deviceName":"Android Emulator","app":"/home/ubuntu/test/application.apk","platformName":"Android","automationName":"appium","appPackage":"com.bitbar.testdroid"}}
+	}
+	protected void quitAppiumSession(){
     	 if (wd != null) {
              wd.quit();
          }

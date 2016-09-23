@@ -10,8 +10,7 @@ import org.junit.runner.RunWith;
 		features = "src/test/resources/testdroid/android/",
 		glue     ={"testdroid.android"},
 		format = {"pretty", 
-				"html:target/cucumber-html-report", 
-				"json-pretty:target/cucumber-report.json"
+				"junit:target/TEST-all.xml"
 				}
 		)
 public class RunTestAndroid {
