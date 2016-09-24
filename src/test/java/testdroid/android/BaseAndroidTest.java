@@ -50,6 +50,17 @@ public class BaseAndroidTest extends BaseTest{
          System.out.println("Capabilities:" + capabilities.toString());
          this.capabilities = capabilities;
 	}
+    
+    @Override
+    protected void setServerSideDesiredCapabilities() {
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("platformName", testdroidProperties.getProperty("androidPlatfromName"));
+        capabilities.setCapability("deviceName", testdroidProperties.getProperty("androidDeviceName"));
+        capabilities.setCapability("app", System.getProperty("user.dir")+"/application.apk");
+        capabilities.setCapability("appPackage", testdroidProperties.getProperty("androidAppPackage"));
+        System.out.println("Capabilities:" + capabilities.toString());
+        this.capabilities = capabilities;        
+	}
 }
 
 

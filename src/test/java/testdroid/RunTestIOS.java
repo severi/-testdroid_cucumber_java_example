@@ -1,17 +1,18 @@
 package testdroid;
 
-import cucumber.junit.Cucumber;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@Cucumber.Options(
-		monochrome = false,
+@CucumberOptions(
+		monochrome = true,
 		dryRun = false,
 		features = "src/test/resources/testdroid/ios/",
 		glue     ={"testdroid.ios"},
-		format = {"pretty", 
-				"html:target/cucumber-html-report", 
-				"json-pretty:target/cucumber-report.json"
+		plugin = {
+				"pretty", 
+				"junit:target/TEST-all.xml"
 				}
 		)
 public class RunTestIOS {

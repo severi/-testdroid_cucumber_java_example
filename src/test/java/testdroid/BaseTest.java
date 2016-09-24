@@ -30,6 +30,7 @@ public abstract class BaseTest {
     protected Properties testdroidProperties;
 
     protected abstract void setDesiredCapabilities(String fileUUID) throws MalformedURLException;
+    protected abstract void setServerSideDesiredCapabilities();
     protected abstract void setAppiumDriver() throws IOException;
 	protected abstract String getTargetAppPath();
     
@@ -72,18 +73,7 @@ public abstract class BaseTest {
          setAppiumDriver();
     }
     
-    private void setServerSideDesiredCapabilities() {
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("platformName", testdroidProperties.getProperty("androidPlatfromName"));
-        capabilities.setCapability("deviceName", testdroidProperties.getProperty("androidDeviceName"));
-        capabilities.setCapability("app", System.getProperty("user.dir")+"/application.apk");
-        capabilities.setCapability("appPackage", testdroidProperties.getProperty("androidAppPackage"));
-//        capabilities.setCapability("testdroid_app", fileUUID); //to use existing app using "latest" as fileUUID  
-        System.out.println("Capabilities:" + capabilities.toString());
-        this.capabilities = capabilities;
-        
-        // POST /wd/hub/session {"requiredCapabilities":{},"desiredCapabilities":{"deviceName":"Android Emulator","app":"/home/ubuntu/test/application.apk","platformName":"Android","automationName":"appium","appPackage":"com.bitbar.testdroid"}}
-	}
+    
 	protected void quitAppiumSession(){
     	 if (wd != null) {
              wd.quit();

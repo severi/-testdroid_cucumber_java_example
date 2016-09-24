@@ -39,6 +39,17 @@ public class BaseIOSTest extends BaseTest{
         System.out.println("Capabilities:" + capabilities.toString());
         this.capabilities = capabilities;
 	}
+    
+    @Override
+    protected void setServerSideDesiredCapabilities() {
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("platformName", testdroidProperties.getProperty("iosPlatfromName"));
+        capabilities.setCapability("deviceName", testdroidProperties.getProperty("iosDeviceName"));
+        capabilities.setCapability("app", System.getProperty("user.dir")+"/application.ipa");
+        System.out.println("Capabilities:" + capabilities.toString());
+        this.capabilities = capabilities; 
+        // {"deviceName":"iOS Device","app":"/Volumes/VMware Shared Folders/test/application.ipa","platformName":"iOS","autoAcceptAlerts":"true"}}
+	}
  
 }
 

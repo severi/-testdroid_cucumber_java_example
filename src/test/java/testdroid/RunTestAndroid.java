@@ -1,15 +1,17 @@
 package testdroid;
 
-import cucumber.junit.Cucumber;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@Cucumber.Options(
+@CucumberOptions(
 		monochrome = true,
 		dryRun = false,
 		features = "src/test/resources/testdroid/android/",
 		glue     ={"testdroid.android"},
-		format = {"pretty", 
+		plugin = {
+				"pretty", 
 				"junit:target/TEST-all.xml"
 				}
 		)
