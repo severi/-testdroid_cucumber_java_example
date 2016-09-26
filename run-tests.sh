@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 installMaven(){
 	if [ "$(uname)" == "Darwin" ]; then
 		echo 'Maven is already installed on mac..'
@@ -37,8 +35,6 @@ initializeTestRun(){
 	echo "Extracting tests.zip..."
 	unzip tests.zip
 	echo "Extracting tests.zip...Done"
-	pwd
-	ls -la
 }
 
 executeTests(){
@@ -51,8 +47,6 @@ executeTests(){
 	    echo "Running Android Tests..."
 		mvn clean install -Dtest=RunTestAndroid
 	fi
-	pwd
-	ls -la
 	echo "Finished Running Tests!"
 	cp target/TEST-all.xml TEST-all.xml
 }
