@@ -48,7 +48,6 @@ public class BaseIOSTest extends BaseTest{
         capabilities.setCapability("app", System.getProperty("user.dir")+"/application.ipa");
         System.out.println("Capabilities:" + capabilities.toString());
         this.capabilities = capabilities; 
-        // {"deviceName":"iOS Device","app":"/Volumes/VMware Shared Folders/test/application.ipa","platformName":"iOS","autoAcceptAlerts":"true"}}
 	}
  
 }

@@ -22,6 +22,9 @@ import java.util.Properties;
 
 
 public abstract class BaseTest {
+	private static final String serverSideTypeDefinition = "serverside";
+	private static final String clientSideTypeDefinition = "clientside";
+	
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static final JsonFactory JSON_FACTORY = new JacksonFactory();
     protected static AppiumDriver wd;
@@ -39,7 +42,7 @@ public abstract class BaseTest {
     	testdroidProperties = new Properties();
     	InputStream input = null;
     	try {
-    		String filename = "testdroid.serverside.properties";
+    		String filename = "testdroid.properties";
     		input = getClass().getClassLoader().getResourceAsStream(filename);
     		if (input == null) {
     			System.out.println("Sorry, unable to find " + filename);
@@ -60,14 +63,25 @@ public abstract class BaseTest {
     	}
     }
     
+    public boolean isServerSideTestRun() {
+    	return testdroidProperties.get("propertiesType").equals(serverSideTypeDefinition);
+    }
+    
+    public boolean isClientSideTestRun() {
+    	return testdroidProperties.get("propertiesType").equals(clientSideTypeDefinition);
+    }
+    
     public void setUpAppiumDriver() throws IOException {
-    	 if (getTargetAppPath()!=null && !getTargetAppPath().isEmpty()) {    		 
+    	 if (isClientSideTestRun()) {    		 
     		 String apiKey = testdroidProperties.getProperty("apiKey");
     		 String fileUUID = uploadFile(getTargetAppPath(), testdroidProperties.getProperty("testdroidServer"), apiKey);
     		 setDesiredCapabilities(fileUUID);
     	 }
-    	 else {
+    	 else if(isServerSideTestRun()){
     		 setServerSideDesiredCapabilities();
+    	 }
+    	 else {
+    		 throw new IllegalStateException("Properties file does not define whether it is used for clientside or serverside test execution.");
     	 }
          System.out.println("Creating Appium session, this may take couple minutes..");
          setAppiumDriver();

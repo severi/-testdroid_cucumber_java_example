@@ -42,8 +42,8 @@ initializeTestRun(){
 }
 
 executeTests(){
-	# echo "Replace testdroid.properties with testdroid.serverside.properties..."
-	# mv testdroid.serverside.properties testdroid.properties
+	echo "Replace testdroid.properties with testdroid.serverside.properties..."
+	mv src/test/resources/testdroid.serverside.properties src/test/resources/testdroid.properties
 	if [ "$(uname)" == "Darwin" ]; then
 	   	echo "Running iOs Tests..."
 		mvn clean install -Dtest=RunTestIOS
@@ -54,8 +54,6 @@ executeTests(){
 	pwd
 	ls -la
 	echo "Finished Running Tests!"
-	echo "............"
-	ls -la target
 	cp target/TEST-all.xml TEST-all.xml
 }
 
