@@ -130,7 +130,7 @@ public abstract class BaseTest {
 
 	protected void takeScreenshot(String screenshotName) {
 		counter = counter + 1;
-		String fullFileName = System.getProperty("user.dir") + "/Screenshots/" + getScreenshotsCounter() + "_"
+		String fullFileName = System.getProperty("user.dir") + "/screenshots/" + getScreenshotsCounter() + "_"
 				+ screenshotName + ".png";
 
 		screenshot(fullFileName);

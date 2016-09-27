@@ -19,6 +19,7 @@ public class AndroidCucumberTestDefs extends BaseAndroidTest {
 	@Given("^I am at the main page$")
 	public void I_am_on_add_user_page() throws Throwable {
 		waitUntilElementDisplayed("What is the best way to test your application against over one hundred devices?");
+		takeScreenshot("android_initial_stage");
 	}
 
 	@When("^I click to use testdroid cloud$")
@@ -38,8 +39,8 @@ public class AndroidCucumberTestDefs extends BaseAndroidTest {
 	public void I_can_save_a_new_contact() throws Throwable {
 		wd.hideKeyboard();
 		wd.findElement(By.name("Answer")).click();
-		takeScreenshot("answer");
 		waitUntilElementDisplayed("You are right!");
+		takeScreenshot("android_final_stage");
 	}
 
 	public void waitUntilElementDisplayed(String element) {

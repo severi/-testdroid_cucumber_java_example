@@ -17,11 +17,15 @@ installMaven(){
 
 startAppium(){
 	if [ "$(uname)" == "Darwin" ]; then
+		# Create the screenshots directory, if it doesn't exist'
+		mkdir -p .screenshots
 	    echo "Starting Appium on Mac..." 
-		node /opt/appium/bin/appium.js -U ${UDID} --log-no-colors --log-timestamp --show-ios-log --screenshot-dir screenshots >appium.log 2>&1 &     
+		node /opt/appium/bin/appium.js -U ${UDID} --log-no-colors --log-timestamp --show-ios-log --screenshot-dir "${PWD}/.screenshots" >appium.log 2>&1 &     
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+		# Create the screenshots directory, if it doesn't exist'
+		mkdir -p .screenshots
 	    echo "Starting Appium on Linux..."
-		/opt/appium/appium/bin/appium.js --log-no-colors --log-timestamp >appium.log 2>&1 &
+		/opt/appium/appium/bin/appium.js --log-no-colors --log-timestamp --screenshot-dir "${PWD}/.screenshots" >appium.log 2>&1 &
 	else
 		echo "Operating system not supported, exiting..."
 		exit 1
@@ -34,7 +38,6 @@ startAppium(){
 initializeTestRun(){
 	echo "Extracting tests.zip..."
 	unzip tests.zip
-	echo "Extracting tests.zip...Done"
 }
 
 executeTests(){

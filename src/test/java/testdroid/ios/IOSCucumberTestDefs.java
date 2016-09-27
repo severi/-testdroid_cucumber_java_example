@@ -19,6 +19,7 @@ public class IOSCucumberTestDefs extends BaseIOSTest {
 	@Given("^I am at the main page$")
 	public void I_am_at_the_main_page() throws Throwable {
 		waitUntilElementDisplayed("What is the best way to test your application against over one hundred devices?");
+		takeScreenshot("ios_initial_stage");
 	}
 
 	@When("^I click to use testdroid cloud$")
@@ -39,6 +40,7 @@ public class IOSCucumberTestDefs extends BaseIOSTest {
 		WebElement el = wd.findElement(By.name("sendAnswer"));
 		el.click();
 		waitUntilElementDisplayed("You are right!");
+		takeScreenshot("ios_final_stage");
 	}
 
 	public void waitUntilElementDisplayed(String element) {
